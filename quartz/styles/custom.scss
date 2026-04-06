@@ -1,3 +1,208 @@
+@use "sass:map";
 @use "./base.scss";
+@use "./variables.scss" as *;
 
-// put your custom CSS here!
+// --- 左侧栏：藏青色导航，紧贴页面最左边 ---
+
+// 整个 .page 容器取消居中留白，让左侧栏能顶到视口最左
+.page {
+  max-width: unset;
+  margin: 0;
+}
+
+// 保持内容区域自身宽度不变，只让左栏顶边
+.page > #quartz-body {
+  max-width: calc(#{map.get($breakpoints, desktop)} + 300px + 320px);
+  margin: 0;
+}
+
+// 内容区与左侧导航栏之间增加间距
+@media all and ($desktop) {
+  .page > #quartz-body > .center,
+  .page > #quartz-body > .page-header,
+  .page > #quartz-body > footer {
+    padding-left: 2.5rem;
+  }
+}
+
+@media all and ($desktop) {
+  .page > #quartz-body > .sidebar.left {
+    // 藏青色背景
+    background: #1b3a4b;
+    color: #ddeaf2;
+    border-radius: 0;
+    box-shadow: inset -1px 0 0 rgb(0 0 0 / 15%);
+    // 顶到视口最左，去掉左侧内边距
+    margin-left: 0;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .page > #quartz-body > .sidebar.left a {
+    color: #a8cfe0;
+  }
+
+  .page > #quartz-body > .sidebar.left a:hover {
+    color: #e8f4fa;
+  }
+
+  .page > #quartz-body > .sidebar.left .page-title a {
+    color: #f0f8ff;
+  }
+
+  .page > #quartz-body > .sidebar.left button {
+    color: inherit;
+  }
+
+  .page > #quartz-body > .sidebar.left .explorer h2 {
+    color: #f0f8ff;
+  }
+
+  .page > #quartz-body > .sidebar.left .explorer .folder-button {
+    color: #c5dfe8;
+  }
+
+  .page > #quartz-body > .sidebar.left input[type="search"] {
+    background: rgb(0 0 0 / 20%);
+    border-color: rgb(255 255 255 / 15%);
+    color: #e8f4fa;
+  }
+
+  .page > #quartz-body > .sidebar.left input[type="search"]::placeholder {
+    color: rgb(255 255 255 / 40%);
+  }
+}
+
+:root[saved-theme="dark"] .page > #quartz-body > .sidebar.left {
+  @media all and ($desktop) {
+    background: #122736;
+    box-shadow: inset -1px 0 0 rgb(0 0 0 / 25%);
+  }
+}
+
+// --- 首页仪表盘（frontmatter: cssclasses: landing）---
+article.landing {
+  padding-bottom: 3rem;
+}
+
+article.landing > h1 {
+  margin-top: 0.25rem;
+  letter-spacing: -0.02em;
+}
+
+article.landing .landing-kicker {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.landing-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 1rem;
+  margin: 2rem 0 2.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.landing-stat {
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--lightgray) 65%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gray) 25%, transparent);
+}
+
+.landing-stat-value {
+  display: block;
+  font-size: 1.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  color: var(--dark);
+}
+
+.landing-stat-label {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--darkgray);
+}
+
+.landing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+a.landing-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+a.landing-card:hover {
+  border-color: color-mix(in srgb, var(--secondary) 45%, var(--lightgray));
+  box-shadow: 0 6px 24px rgb(0 0 0 / 7%);
+  transform: translateY(-2px);
+}
+
+.landing-card-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.landing-card-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--dark);
+}
+
+.landing-card-desc {
+  font-size: 0.9rem;
+  color: var(--darkgray);
+}
+
+.landing-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+
+a.landing-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  text-decoration: none;
+  background: color-mix(in srgb, var(--tertiary) 18%, var(--light));
+  color: var(--secondary);
+  border: 1px solid color-mix(in srgb, var(--tertiary) 35%, var(--lightgray));
+}
+
+a.landing-tag:hover {
+  background: color-mix(in srgb, var(--tertiary) 28%, var(--light));
+}
+
+.landing-footnote {
+  margin-top: 2rem;
+  font-size: 0.88rem;
+  color: var(--gray);
+  line-height: 1.55;
+}

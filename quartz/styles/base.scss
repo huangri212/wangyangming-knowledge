@@ -9,6 +9,8 @@ html {
   text-size-adjust: none;
   overflow-x: hidden;
   width: 100vw;
+  // 基础字号缩放，供字体大小控件使用
+  font-size: calc(16px * var(--font-scale, 1));
 
   @media all and ($mobile) {
     scroll-padding-top: 4rem;
@@ -21,6 +23,7 @@ body {
   background-color: var(--light);
   font-family: var(--bodyFont);
   color: var(--darkgray);
+  font-size: 1rem;
 }
 
 .text-highlight {

@@ -22,8 +22,14 @@ export const defaultContentPageLayout: PageLayout = {
       condition: (page) => page.fileData.slug !== "index",
     }),
     Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    Component.ConditionalRender({
+      component: Component.ContentMeta(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.TagList(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
   ],
   left: [
     Component.PageTitle(),
@@ -36,14 +42,28 @@ export const defaultContentPageLayout: PageLayout = {
         },
         { Component: Component.Darkmode() },
         { Component: Component.ReaderMode() },
+        { Component: Component.FontScale() },
       ],
     }),
-    Component.Explorer(),
+    Component.Explorer({
+      title: "知识库导航",
+      folderDefaultState: "open",
+      folderClickBehavior: "collapse",
+    }),
   ],
   right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
+    Component.ConditionalRender({
+      component: Component.Graph(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.DesktopOnly(Component.TableOfContents()),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
+    Component.ConditionalRender({
+      component: Component.Backlinks(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
   ],
 }
 
